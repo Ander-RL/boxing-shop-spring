@@ -12,7 +12,6 @@ public interface IProductMapper {
     @Mapping(target = "img", source = "img")
     @Mapping(target = "quantity", source = "quantity")
     @Mapping(target = "price", source = "price")
-    @Mapping(target = "totalPrice", source = "totalPrice")
     @Mapping(target = "description", source = "description")
     GetProductDto entityToDto (Product entity);
 

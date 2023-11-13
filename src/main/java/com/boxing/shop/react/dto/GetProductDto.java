@@ -19,8 +19,6 @@ public class GetProductDto {
 
     private Double price;
 
-    private Double totalPrice;
-
     private String description;
 
 }

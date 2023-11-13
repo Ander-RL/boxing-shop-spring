@@ -16,6 +16,4 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     @Override
     List<Product> findAll();
-
-    List<Product> findAllByCode(Long code);
 }

@@ -9,8 +9,8 @@ import lombok.Data;
 @Table(
         name = "product",
         indexes = {
-                @Index(name = "product_code",
-                        columnList = "code",
+                @Index(name = "product_id",
+                        columnList = "id",
                         unique = true)
         }
 )

@@ -1,14 +1,13 @@
 package com.boxing.shop.react.controller;
 
 import com.boxing.shop.react.dto.GetProductDto;
+import com.boxing.shop.react.dto.GetSelectedProductsDto;
 import com.boxing.shop.react.service.ProductService;
+import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class ProductController {
 
     /**
      * Return list of products
-     * @return
+     * @return List<GetProductDto>
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<GetProductDto> getProducts(){
@@ -32,8 +31,8 @@ public class ProductController {
 
     /**
      * Return the product by id
-     * @param productId
-     * @return
+     * @param productId productId
+     * @return GetProductDto
      */
     @GetMapping(path = "/{productId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,5 +40,16 @@ public class ProductController {
 
         return productService.getProduct(productId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * Return list of selected products
+     * @return GetSelectedProductsDto
+     */
+    @PostMapping(path = "/selectedProducts",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public GetSelectedProductsDto getSelectedProducts(List<String> selectedProducts){
+
+        return productService.getSelectedProducts(selectedProducts);
     }
 }

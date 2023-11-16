@@ -2,6 +2,7 @@ package com.boxing.shop.react.repository;
 
 import com.boxing.shop.react.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,4 +17,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     @Override
     List<Product> findAll();
+
+    @Query(value = "SELECT * FROM PRODUCT WHERE KEYWORD = ?1", nativeQuery = true)
+    Product findByKeyWord(String keyword);
 }

@@ -21,6 +21,9 @@ public class Product {
     @Column(name = "id", unique = true , nullable = false)
     private Long id;
 
+    @Column(name = "keyword", nullable = false)
+    private String keyword;
+
     @Column(name = "name", nullable = false, length = 150)
     private String name;
 

@@ -44,6 +44,7 @@ public class ProductController {
      * Return list of selected products
      * @return List<GetProductDto>
      */
+    @CrossOrigin(origins = "*")
     @PostMapping(path = "/selectedProducts",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<GetProductDto> getSelectedProducts(@RequestBody List<String> selectedProducts){

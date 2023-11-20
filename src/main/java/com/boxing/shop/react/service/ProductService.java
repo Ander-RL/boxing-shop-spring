@@ -1,7 +1,6 @@
 package com.boxing.shop.react.service;
 
 import com.boxing.shop.react.dto.GetProductDto;
-import com.boxing.shop.react.dto.GetSelectedProductsDto;
 import com.boxing.shop.react.entity.Product;
 import com.boxing.shop.react.mapper.IProductMapper;
 import com.boxing.shop.react.repository.IProductRepository;
@@ -49,19 +48,17 @@ public class ProductService {
 
     /**
      * Returns selected products
-     * @return GetSelectedProductsDto
+     * @return List<GetProductDto>
      */
     @Transactional(readOnly = true)
-    public GetSelectedProductsDto getSelectedProducts(List<String> selectedProducts){
+    public List<GetProductDto> getSelectedProducts(List<String> selectedProducts){
         List<GetProductDto> productList = new ArrayList<>();
 
         for (String selectedProduct : selectedProducts) {
-            GetProductDto product =  productMapper.entityToDto(productRepository.findByKeyWord(selectedProduct));
-            productList.add(product);
+            List<Product> products = productRepository.findByKeyWord(selectedProduct);
+            products.forEach(product -> productList.add(productMapper.entityToDto(product)));
         }
-        GetSelectedProductsDto selection = new GetSelectedProductsDto();
-        selection.setSelectedProducts(productList);
 
-        return selection;
+        return productList;
     }
 }

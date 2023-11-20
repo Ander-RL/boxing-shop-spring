@@ -1,9 +1,7 @@
 package com.boxing.shop.react.controller;
 
 import com.boxing.shop.react.dto.GetProductDto;
-import com.boxing.shop.react.dto.GetSelectedProductsDto;
 import com.boxing.shop.react.service.ProductService;
-import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,11 +42,11 @@ public class ProductController {
 
     /**
      * Return list of selected products
-     * @return GetSelectedProductsDto
+     * @return List<GetProductDto>
      */
     @PostMapping(path = "/selectedProducts",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public GetSelectedProductsDto getSelectedProducts(List<String> selectedProducts){
+    public List<GetProductDto> getSelectedProducts(@RequestBody List<String> selectedProducts){
 
         return productService.getSelectedProducts(selectedProducts);
     }

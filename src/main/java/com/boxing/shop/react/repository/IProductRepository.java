@@ -19,5 +19,5 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAll();
 
     @Query(value = "SELECT * FROM PRODUCT WHERE KEYWORD = ?1", nativeQuery = true)
-    Product findByKeyWord(String keyword);
+    List<Product> findByKeyWord(String keyword);
 }

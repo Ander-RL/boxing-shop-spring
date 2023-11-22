@@ -19,3 +19,7 @@ http://localhost:8080/react/v1/products
 http://localhost:8080/react/v1/products/{productId}
 ### POST GetSelectedProductsDto getSelectedProducts(List<String> selectedProducts)
 http://localhost:8080/react/v1/products/selectedProducts
+
+##Open API
+http://localhost:8080/react/swagger-ui/index.html <br>
+http://localhost:8080/react/v3/api-docs (json)

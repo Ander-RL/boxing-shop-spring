@@ -1,0 +1,44 @@
+package com.boxing.shop.react.controller;
+
+import com.boxing.shop.react.dto.GetOrderDto;
+import com.boxing.shop.react.dto.GetProductDto;
+import com.boxing.shop.react.service.OrderService;
+import com.boxing.shop.react.service.ProductService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(path = "/v1/orders")
+@AllArgsConstructor
+public class OrderController {
+
+    private final OrderService orderService;
+
+    /**
+     * Return list of orders
+     * @return List<GetOrderDto>
+     */
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<GetOrderDto> getOrders(){
+
+        return orderService.getOrders();
+    }
+
+    /**
+     * Return the order by id
+     * @param orderId orderId
+     * @return GetProductDto
+     */
+    @GetMapping(path = "/{orderId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public GetOrderDto getOrder(@PathVariable Long orderId){
+
+        return orderService.getOrder(orderId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+}

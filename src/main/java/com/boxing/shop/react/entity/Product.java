@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(
-        name = "product",
+        name = "products",
         indexes = {
                 @Index(name = "product_id",
                         columnList = "id",

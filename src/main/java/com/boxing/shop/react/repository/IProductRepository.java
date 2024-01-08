@@ -18,6 +18,6 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     @Override
     List<Product> findAll();
 
-    @Query(value = "SELECT * FROM PRODUCT WHERE KEYWORD LIKE ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM PRODUCTS WHERE KEYWORD LIKE ?1", nativeQuery = true)
     List<Product> findByKeyWord(String keyword);
 }

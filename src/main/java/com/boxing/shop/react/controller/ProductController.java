@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/v1/products")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class ProductController {
 
     private final ProductService productService;
@@ -41,10 +42,20 @@ public class ProductController {
     }
 
     /**
-     * Return list of selected products
+     * Return list of selected products by id
      * @return List<GetProductDto>
      */
-    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/selectedProductsById",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<GetProductDto> getSelectedProductsById(@RequestBody List<String> selectedProducts){
+
+        return productService.getSelectedProductsById(selectedProducts);
+    }
+
+    /**
+     * Return list of selected products in the filter
+     * @return List<GetProductDto>
+     */
     @PostMapping(path = "/selectedProducts",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<GetProductDto> getSelectedProducts(@RequestBody List<String> selectedProducts){

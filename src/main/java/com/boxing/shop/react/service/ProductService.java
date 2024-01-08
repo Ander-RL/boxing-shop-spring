@@ -47,6 +47,22 @@ public class ProductService {
     }
 
     /**
+     * Returns selected products by id
+     * @return List<GetProductDto>
+     */
+    @Transactional(readOnly = true)
+    public List<GetProductDto> getSelectedProductsById(List<String> selectedProductsId){
+        List<GetProductDto> productList = new ArrayList<>();
+
+        for (String selectedId : selectedProductsId) {
+            Optional<Product> product = productRepository.findById(Long.parseLong(selectedId));
+            product.ifPresent(value -> productList.add(productMapper.entityToDto(value)));
+        }
+
+        return productList;
+    }
+
+    /**
      * Returns selected products
      * @return List<GetProductDto>
      */

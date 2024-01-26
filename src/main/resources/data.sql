@@ -15,7 +15,7 @@ INSERT INTO products(id, keyword, name, img, quantity, price, description) VALUE
 INSERT INTO products(id, keyword, name, img, quantity, price, description) VALUES(14, 'mouthpiece', 'Simple Mouthpiece', 'Mouthpiece.jpg', 67, 20, 'Simple to adapt mouthpiece');
 INSERT INTO products(id, keyword, name, img, quantity, price, description) VALUES(15, 'mouthpiece', 'Pro Mouthpiece', 'Mouthpiece.jpg', 26, 50, 'Professional mouthpiece');
 
-INSERT INTO orders(id, id_customer, id_product, quantity) VALUES(1, 45890687, 3, 2);
-INSERT INTO orders(id, id_customer, id_product, quantity) VALUES(2, 45890687, 7, 1);
-INSERT INTO orders(id, id_customer, id_product, quantity) VALUES(3, 45890687, 9, 4);
-INSERT INTO orders(id, id_customer, id_product, quantity) VALUES(4, 45890687, 14, 2);
+INSERT INTO orders(id, id_customer, id_product, id_order, quantity) VALUES(1, 45890687, 3, 1, 2);
+INSERT INTO orders(id, id_customer, id_product, id_order, quantity) VALUES(2, 45890687, 7, 1, 1);
+INSERT INTO orders(id, id_customer, id_product, id_order, quantity) VALUES(3, 45890687, 9, 2, 4);
+INSERT INTO orders(id, id_customer, id_product, id_order, quantity) VALUES(4, 45890687, 14, 2, 2);

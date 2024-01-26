@@ -7,15 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetOrderDto {
-
-    private Long id;
+public class PostOrderDto {
 
     private Long idCustomer;
 
     private Long idProduct;
-
-    private Long idOrder;
 
     private Integer quantity;
 

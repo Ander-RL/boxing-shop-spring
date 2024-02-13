@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.List;
+
 
 @Data
 @Entity
@@ -11,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
         name = "orders",
         indexes = {
                 @Index(name = "order_id",
-                        columnList = "id",
+                        columnList = "order_id",
                         unique = true)
         }
 )
@@ -21,27 +23,25 @@ public class Order {
     @GeneratedValue(generator = "sequence-generator")
     @GenericGenerator(
             name = "sequence-generator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            type = org.hibernate.id.enhanced.SequenceStyleGenerator.class,
             parameters = {
                     @org.hibernate.annotations.Parameter(name = "sequence_name", value = "user_sequence"),
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1000"),
                     @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
             }
     )
-    @Column(name = "id", unique = true , nullable = false)
-    private Long id;
+    @Column(name = "order_id", unique = true , nullable = false)
+    private Long orderId;
 
-    @Column(name = "id_customer", nullable = false)
-    private Long idCustomer;
+    @Column(name = "customer_id", nullable = false)
+    private Long customerId;
 
-    @Column(name = "id_product", nullable = false)
-    private Long idProduct;
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JoinColumn(name="order_id", referencedColumnName = "order_id")
+    private List<OrderProduct> products;
 
-    @Column(name = "id_order", nullable = false)
-    private Long idOrder;
-
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
+    @Column(name = "total_amount", nullable = false)
+    private Double totalAmount;
 
 
 }

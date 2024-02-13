@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetProductDto {
 
-    private Long id;
+    private Long productId;
+
+    private String keyword;
 
     private String name;
 
@@ -17,7 +19,7 @@ public class GetProductDto {
 
     private Integer quantity;
 
-    private Double price;
+    private Double unitaryAmount;
 
     private String description;
 

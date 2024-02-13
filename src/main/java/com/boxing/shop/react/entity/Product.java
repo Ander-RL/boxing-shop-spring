@@ -10,16 +10,16 @@ import lombok.Data;
         name = "products",
         indexes = {
                 @Index(name = "product_id",
-                        columnList = "id",
+                        columnList = "product_id",
                         unique = true)
         }
 )
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true , nullable = false)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "product_id", unique = true , nullable = false)
+    private Long productId;
 
     @Column(name = "keyword", nullable = false)
     private String keyword;
@@ -33,8 +33,8 @@ public class Product {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @Column(name = "price", nullable = false)
-    private Double price;
+    @Column(name = "unitary_amount", nullable = false)
+    private Double unitaryAmount;
 
     @Column(name = "description", nullable = false)
     private String description;

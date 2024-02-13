@@ -4,17 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostOrderDto {
+public class GetOrderProductDto {
 
-    private Long customerId;
+    private Long purchasedProduct;
 
-    private List<PostOrderProductDto> products;
+    private Integer quantity;
 
-    private Double totalAmount;
+    private Double unitaryAmount;
+
 
 }

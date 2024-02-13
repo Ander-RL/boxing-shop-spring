@@ -1,10 +1,8 @@
 package com.boxing.shop.react.controller;
 
 import com.boxing.shop.react.dto.GetOrderDto;
-import com.boxing.shop.react.dto.GetProductDto;
 import com.boxing.shop.react.dto.PostOrderDto;
 import com.boxing.shop.react.service.OrderService;
-import com.boxing.shop.react.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,13 +43,13 @@ public class OrderController {
     }
 
     /**
-     * Return the order by id
-     * @param postOrderDto List<String>
+     * Create a new order
+     * @param postOrderDto PostOrderDto
      * @return String
      */
     @PostMapping(path = "/checkout",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public String postOrder(@RequestBody List<PostOrderDto> postOrderDto){
+    public String postOrder(@RequestBody PostOrderDto postOrderDto){
 
         return orderService.postOrder(postOrderDto);
     }

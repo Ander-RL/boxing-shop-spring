@@ -8,17 +8,15 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface IOrderMapper {
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "idCustomer", source = "idCustomer")
-    @Mapping(target = "idProduct", source = "idProduct")
-    @Mapping(target = "idOrder", source = "idOrder")
-    @Mapping(target = "quantity", source = "quantity")
+    @Mapping(target = "orderId", source = "orderId")
+    @Mapping(target = "customerId", source = "customerId")
+    @Mapping(target = "products", source = "products")
+    @Mapping(target = "totalAmount", source = "totalAmount")
     GetOrderDto entityToDto (Order entity);
 
-    @Mapping(target = "idCustomer", source = "dto.idCustomer")
-    @Mapping(target = "idProduct", source = "dto.idProduct")
-    @Mapping(target = "idOrder", source = "idOrder")
-    @Mapping(target = "quantity", source = "dto.quantity")
-    Order dtoToEntity (PostOrderDto dto, Long idOrder);
+    @Mapping(target = "customerId", source = "dto.customerId")
+    @Mapping(target = "products", source = "dto.products")
+    @Mapping(target = "totalAmount", source = "dto.totalAmount")
+    Order dtoToEntity (PostOrderDto dto);
 
 }

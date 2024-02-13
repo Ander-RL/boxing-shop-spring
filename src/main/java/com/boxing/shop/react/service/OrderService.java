@@ -3,10 +3,12 @@ package com.boxing.shop.react.service;
 import com.boxing.shop.react.dto.*;
 import com.boxing.shop.react.entity.Order;
 import com.boxing.shop.react.entity.OrderProduct;
+import com.boxing.shop.react.entity.Product;
 import com.boxing.shop.react.mapper.IOrderMapper;
 import com.boxing.shop.react.mapper.IProductMapper;
 import com.boxing.shop.react.repository.IOrderProductRepository;
 import com.boxing.shop.react.repository.IOrderRepository;
+import com.boxing.shop.react.repository.IProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,8 @@ import java.util.Optional;
 public class OrderService {
 
     private final IOrderRepository orderRepository;
+
+    private final IProductRepository productRepository;
 
     private final IOrderProductRepository orderProductRepository;
 
@@ -70,7 +74,7 @@ public class OrderService {
     /**
      * Return the order by id
      * @param postOrderDto PostOrderDto
-     * @return String
+     * @return Order
      */
     @Transactional()
     public Order postOrder(PostOrderDto postOrderDto){
@@ -88,8 +92,9 @@ public class OrderService {
 
     private Double calculateTotalAmount(List<OrderProduct> products) {
         double total = 0.0;
-        for(OrderProduct product : products){
-            total += product.getUnitaryAmount() * product.getQuantity();
+        for(OrderProduct orderProduct : products){
+            Product product = productRepository.findById(orderProduct.getPurchasedProduct()).orElseThrow();
+            total += product.getUnitaryAmount() * orderProduct.getQuantity();
         }
         return total;
     }

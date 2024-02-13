@@ -15,6 +15,4 @@ public class PostOrderDto {
 
     private List<PostOrderProductDto> products;
 
-    private Double totalAmount;
-
 }

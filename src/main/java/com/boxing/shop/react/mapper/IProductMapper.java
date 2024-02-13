@@ -21,12 +21,10 @@ public interface IProductMapper {
 
     @Mapping(target = "purchasedProduct", source = "purchasedProduct")
     @Mapping(target = "quantity", source = "quantity")
-    @Mapping(target = "unitaryAmount", source = "unitaryAmount")
     OrderProduct dtoToEntity (PostOrderProductDto dto);
 
     @Mapping(target = "purchasedProduct", source = "purchasedProduct")
     @Mapping(target = "quantity", source = "quantity")
-    @Mapping(target = "unitaryAmount", source = "unitaryAmount")
     GetOrderProductDto entityToDto (OrderProduct entity);
 
 }

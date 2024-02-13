@@ -14,7 +14,4 @@ public class PostOrderProductDto {
 
     private Integer quantity;
 
-    private Double unitaryAmount;
-
-
 }

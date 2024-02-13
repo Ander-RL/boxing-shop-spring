@@ -14,7 +14,4 @@ public class GetOrderProductDto {
 
     private Integer quantity;
 
-    private Double unitaryAmount;
-
-
 }

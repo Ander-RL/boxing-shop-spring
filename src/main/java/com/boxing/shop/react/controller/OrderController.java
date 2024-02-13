@@ -2,6 +2,7 @@ package com.boxing.shop.react.controller;
 
 import com.boxing.shop.react.dto.GetOrderDto;
 import com.boxing.shop.react.dto.PostOrderDto;
+import com.boxing.shop.react.entity.Order;
 import com.boxing.shop.react.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -49,7 +50,7 @@ public class OrderController {
      */
     @PostMapping(path = "/checkout",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public String postOrder(@RequestBody PostOrderDto postOrderDto){
+    public Order postOrder(@RequestBody PostOrderDto postOrderDto){
 
         return orderService.postOrder(postOrderDto);
     }

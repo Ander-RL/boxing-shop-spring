@@ -16,7 +16,6 @@ public interface IOrderMapper {
 
     @Mapping(target = "customerId", source = "dto.customerId")
     @Mapping(target = "products", source = "dto.products")
-    @Mapping(target = "totalAmount", source = "dto.totalAmount")
     Order dtoToEntity (PostOrderDto dto);
 
 }

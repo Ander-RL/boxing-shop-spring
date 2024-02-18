@@ -21,10 +21,20 @@ public interface IProductMapper {
 
     @Mapping(target = "purchasedProduct", source = "purchasedProduct")
     @Mapping(target = "quantity", source = "quantity")
-    OrderProduct dtoToEntity (PostOrderProductDto dto);
+    GetOrderProductDto entityToDto (OrderProduct entity);
 
     @Mapping(target = "purchasedProduct", source = "purchasedProduct")
     @Mapping(target = "quantity", source = "quantity")
-    GetOrderProductDto entityToDto (OrderProduct entity);
+    OrderProduct dtoToEntity (PostOrderProductDto dto);
+
+
+    @Mapping(target = "productId", source = "productId")
+    @Mapping(target = "keyword", source = "keyword")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "img", source = "img")
+    @Mapping(target = "quantity", source = "quantity")
+    @Mapping(target = "unitaryAmount", source = "unitaryAmount")
+    @Mapping(target = "description", source = "description")
+    Product getProductDtoToEntity (GetProductDto entity);
 
 }

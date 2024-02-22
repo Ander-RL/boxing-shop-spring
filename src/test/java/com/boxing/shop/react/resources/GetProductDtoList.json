@@ -1,0 +1,137 @@
+[
+  {
+    "productId": 1,
+    "keyword": "gloves",
+    "name": "10oz Boxing Gloves",
+    "img": "Gloves.jpg",
+    "quantity": 12,
+    "unitaryAmount": 40,
+    "description": "10oz Boxing Gloves"
+  },
+  {
+    "productId": 2,
+    "keyword": "gloves",
+    "name": "12oz Boxing Gloves",
+    "img": "Gloves.jpg",
+    "quantity": 26,
+    "unitaryAmount": 50,
+    "description": "12oz Boxing Gloves"
+  },
+  {
+    "productId": 3,
+    "keyword": "gloves",
+    "name": "14oz Boxing Gloves",
+    "img": "Gloves.jpg",
+    "quantity": 18,
+    "unitaryAmount": 60,
+    "description": "14oz Boxing Gloves"
+  },
+  {
+    "productId": 4,
+    "keyword": "headguard",
+    "name": "Male HeadGuard",
+    "img": "Headguard.jpg",
+    "quantity": 12,
+    "unitaryAmount": 70,
+    "description": "Male HeadGuard"
+  },
+  {
+    "productId": 5,
+    "keyword": "headguard",
+    "name": "Female HeadGuard",
+    "img": "Headguard.jpg",
+    "quantity": 6,
+    "unitaryAmount": 70,
+    "description": "Female HeadGuard"
+  },
+  {
+    "productId": 6,
+    "keyword": "headguard",
+    "name": "Child HeadGuard",
+    "img": "Headguard.jpg",
+    "quantity": 3,
+    "unitaryAmount": 50,
+    "description": "Child HeadGuard"
+  },
+  {
+    "productId": 7,
+    "keyword": "bag",
+    "name": "Punching Bag",
+    "img": "HookBag.jpg",
+    "quantity": 10,
+    "unitaryAmount": 200,
+    "description": "Punching bag for practicing hooks"
+  },
+  {
+    "productId": 8,
+    "keyword": "bag",
+    "name": "Common Punching Bag",
+    "img": "HookBag.jpg",
+    "quantity": 22,
+    "unitaryAmount": 250,
+    "description": "Punching bag for general practicing"
+  },
+  {
+    "productId": 9,
+    "keyword": "vandages",
+    "name": "5m Vandages",
+    "img": "Vandages.jpg",
+    "quantity": 32,
+    "unitaryAmount": 25,
+    "description": "5m Vandages"
+  },
+  {
+    "productId": 10,
+    "keyword": "vandages",
+    "name": "4m Vandages",
+    "img": "Vandages.jpg",
+    "quantity": 40,
+    "unitaryAmount": 25,
+    "description": "4m Vandages"
+  },
+  {
+    "productId": 11,
+    "keyword": "vandages",
+    "name": "3m Vandages",
+    "img": "Vandages.jpg",
+    "quantity": 44,
+    "unitaryAmount": 20,
+    "description": "3m Vandages"
+  },
+  {
+    "productId": 12,
+    "keyword": "pads",
+    "name": "Regular Hand Pads",
+    "img": "Pads.png",
+    "quantity": 24,
+    "unitaryAmount": 50,
+    "description": "Pads for practicing technic"
+  },
+  {
+    "productId": 13,
+    "keyword": "pads",
+    "name": "Small Hand Pads",
+    "img": "Pads.png",
+    "quantity": 14,
+    "unitaryAmount": 20,
+    "description": "Pads for practicing technic"
+  },
+  {
+    "productId": 14,
+    "keyword": "mouthpiece",
+    "name": "Simple Mouthpiece",
+    "img": "Mouthpiece.jpg",
+    "quantity": 67,
+    "unitaryAmount": 20,
+    "description": "Simple to adapt mouthpiece"
+  },
+  {
+    "productId": 15,
+    "keyword": "mouthpiece",
+    "name": "Pro Mouthpiece",
+    "img": "Mouthpiece.jpg",
+    "quantity": 26,
+    "unitaryAmount": 50,
+    "description": "Professional mouthpiece"
+  }
+]

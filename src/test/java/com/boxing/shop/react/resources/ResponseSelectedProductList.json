@@ -1,0 +1,65 @@
+[
+    {
+        "productId": 1,
+        "keyword": "gloves",
+        "name": "10oz Boxing Gloves",
+        "img": "Gloves.jpg",
+        "quantity": 12,
+        "unitaryAmount": 40,
+        "description": "10oz Boxing Gloves"
+    },
+    {
+        "productId": 2,
+        "keyword": "gloves",
+        "name": "12oz Boxing Gloves",
+        "img": "Gloves.jpg",
+        "quantity": 26,
+        "unitaryAmount": 50,
+        "description": "12oz Boxing Gloves"
+    },
+    {
+        "productId": 3,
+        "keyword": "gloves",
+        "name": "14oz Boxing Gloves",
+        "img": "Gloves.jpg",
+        "quantity": 18,
+        "unitaryAmount": 60,
+        "description": "14oz Boxing Gloves"
+    },
+    {
+        "productId": 12,
+        "keyword": "pads",
+        "name": "Regular Hand Pads",
+        "img": "Pads.png",
+        "quantity": 24,
+        "unitaryAmount": 50,
+        "description": "Pads for practicing technic"
+    },
+    {
+        "productId": 13,
+        "keyword": "pads",
+        "name": "Small Hand Pads",
+        "img": "Pads.png",
+        "quantity": 14,
+        "unitaryAmount": 20,
+        "description": "Pads for practicing technic"
+    },
+    {
+        "productId": 14,
+        "keyword": "mouthpiece",
+        "name": "Simple Mouthpiece",
+        "img": "Mouthpiece.jpg",
+        "quantity": 67,
+        "unitaryAmount": 20,
+        "description": "Simple to adapt mouthpiece"
+    },
+    {
+        "productId": 15,
+        "keyword": "mouthpiece",
+        "name": "Pro Mouthpiece",
+        "img": "Mouthpiece.jpg",
+        "quantity": 26,
+        "unitaryAmount": 50,
+        "description": "Professional mouthpiece"
+    }
+]

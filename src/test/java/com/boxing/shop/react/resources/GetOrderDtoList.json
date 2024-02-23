@@ -1,0 +1,25 @@
+[
+  {
+    "orderId": 1000,
+    "customerId": 458907,
+    "products": [
+      {
+        "purchasedProduct": 3,
+        "quantity": 1
+      },
+      {
+        "purchasedProduct": 4,
+        "quantity": 1
+      },
+      {
+        "purchasedProduct": 13,
+        "quantity": 1
+      },
+      {
+        "purchasedProduct": 9,
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 175
+  }
+]

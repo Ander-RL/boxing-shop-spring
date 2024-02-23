@@ -87,6 +87,13 @@ public class OrderService {
         order.setProducts(products);
         order.setTotalAmount(calculateTotalAmount(products));
 
+        try {
+            Thread.sleep(5000);
+            //Any other code to execute after 5 min execution pause.
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return orderRepository.save(order);
     }
 

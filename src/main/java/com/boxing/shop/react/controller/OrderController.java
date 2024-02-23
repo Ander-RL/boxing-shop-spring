@@ -50,7 +50,7 @@ public class OrderController {
      */
     @PostMapping(path = "/checkout",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Order postOrder(@RequestBody PostOrderDto postOrderDto){
+    public GetOrderDto postOrder(@RequestBody PostOrderDto postOrderDto){
 
         return orderService.postOrder(postOrderDto);
     }

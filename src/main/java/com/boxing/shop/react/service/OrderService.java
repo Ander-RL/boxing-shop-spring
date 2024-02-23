@@ -77,7 +77,7 @@ public class OrderService {
      * @return Order
      */
     @Transactional()
-    public Order postOrder(PostOrderDto postOrderDto){
+    public GetOrderDto postOrder(PostOrderDto postOrderDto){
 
         List<OrderProduct> products = postOrderDto.getProducts().stream().map(productMapper::dtoToEntity).toList();
         orderProductRepository.saveAll(products);
@@ -94,7 +94,7 @@ public class OrderService {
             e.printStackTrace();
         }
 
-        return orderRepository.save(order);
+        return orderMapper.entityToDto(orderRepository.save(order));
     }
 
     private Double calculateTotalAmount(List<OrderProduct> products) {

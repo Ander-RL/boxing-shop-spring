@@ -62,10 +62,10 @@ class OrderControllerTests {
 	@Test
 	void postOrderControllerTest() {
 		Mockito.when(orderRepository.save(Mockito.any())).thenReturn(Optional.ofNullable((Order) TestUtil.leerJSONasDTO(Constants.OrderPath, Order.class)));
-		Order order = orderController.postOrder((PostOrderDto) TestUtil.leerJSONasDTO(Constants.PostOrderDtoPath, PostOrderDto.class));
-		Order expectedOrder = (Order) TestUtil.leerJSONasDTO(Constants.OrderPath, Order.class);
+		GetOrderDto order = orderController.postOrder((PostOrderDto) TestUtil.leerJSONasDTO(Constants.PostOrderDtoPath, PostOrderDto.class));
+		GetOrderDto expectedOrder = (GetOrderDto) TestUtil.leerJSONasDTO(Constants.GetOrderDtoPath, GetOrderDto.class);
 
-		Assertions.assertEquals(order.toString(), expectedOrder.toString());
+		Assertions.assertEquals(order, expectedOrder);
 	}
 
 	private List<Order> preprareOrderList() {

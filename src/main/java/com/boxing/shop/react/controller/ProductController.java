@@ -3,7 +3,6 @@ package com.boxing.shop.react.controller;
 import com.boxing.shop.react.dto.GetProductDto;
 import com.boxing.shop.react.service.ProductService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -41,16 +40,7 @@ public class ProductController {
                                                  @RequestParam(name = "size", defaultValue = "3") int size){
 
         Pageable pageRequest = PageRequest.of(page, size);
-        List<GetProductDto> allProducts = productService.getProducts();
-
-        // starting index
-        int start = (int) pageRequest.getOffset();
-        // ending index
-        int end = Math.min((start + pageRequest.getPageSize()), allProducts.size());
-        // sublist
-        List<GetProductDto> pageContent = allProducts.subList(start, end);
-
-        return new PageImpl<>(pageContent, pageRequest, allProducts.size());
+        return productService.getProductsPage(pageRequest);
     }
 
     /**

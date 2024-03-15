@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -48,6 +49,15 @@ class ProductControllerTests {
 		List<Object> expectedProductList = TestUtil.leerJSONasDTOList(Constants.GetProductDtoListPath, GetProductDto.class);
 
 		Assertions.assertEquals(productList, expectedProductList);
+	}
+
+	@Test
+	void getProductsPageControllerTest() {
+		Mockito.when(productRepository.findAll()).thenReturn(preprareProductList());
+		Page<GetProductDto> productPage = productController.getProductsByPage(0,3);
+		List<Object> expectedProductList = Objects.requireNonNull(TestUtil.leerJSONasDTOList(Constants.GetProductDtoListPath, GetProductDto.class)).subList(0,3);
+
+		Assertions.assertEquals(productPage.stream().toList(), expectedProductList);
 	}
 
 	@Test

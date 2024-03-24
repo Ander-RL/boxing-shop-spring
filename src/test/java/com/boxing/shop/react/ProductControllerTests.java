@@ -57,7 +57,7 @@ class ProductControllerTests {
 		Page<GetProductDto> productPage = productController.getProductsByPage(0,3);
 		List<Object> expectedProductList = Objects.requireNonNull(TestUtil.leerJSONasDTOList(Constants.GetProductDtoListPath, GetProductDto.class)).subList(0,3);
 
-		Assertions.assertEquals(productPage.stream().toList(), expectedProductList);
+		Assertions.assertEquals(productPage.toList(), expectedProductList);
 	}
 
 	@Test
@@ -71,12 +71,12 @@ class ProductControllerTests {
 
 	@Test
 	void getSelectedProductsControllerTest() {
-		List<GetProductDto> productList = productController.getSelectedProducts(
+		Page<GetProductDto> productList = productController.getSelectedProducts(
 				(Objects.requireNonNull(TestUtil.leerJSONasDTOList(Constants.SelectedProductListPath, String.class))
-				).stream().map(Object::toString).toList());
-		List<Object> expectedProductList = TestUtil.leerJSONasDTOList(Constants.ResponseSelectedProductListPath, GetProductDto.class);
+				).stream().map(Object::toString).toList(), 0, 3);
+		List<Object> expectedProductList = Objects.requireNonNull(TestUtil.leerJSONasDTOList(Constants.ResponseSelectedProductListPath, GetProductDto.class)).subList(0,3);
 
-		Assertions.assertEquals(productList, expectedProductList);
+		Assertions.assertEquals(productList.toList(), expectedProductList);
 	}
 
 	@Test

@@ -3,6 +3,7 @@ package com.boxing.shop.react.controller;
 import com.boxing.shop.react.dto.GetProductDto;
 import com.boxing.shop.react.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -73,8 +74,16 @@ public class ProductController {
      */
     @PostMapping(path = "/selectedProducts",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<GetProductDto> getSelectedProducts(@RequestBody List<String> selectedProducts){
+    public Page<GetProductDto> getSelectedProducts(@RequestBody List<String> selectedProducts,
+                                                   @RequestParam(name = "page",defaultValue = "0") int page,
+                                                   @RequestParam(name = "size", defaultValue = "3") int size){
 
-        return productService.getSelectedProducts(selectedProducts);
+        List<GetProductDto> products = productService.getSelectedProducts(selectedProducts);
+        Pageable pageRequest = PageRequest.of(page, size);
+        int start = (int) pageRequest.getOffset();
+        int end = Math.min((start + pageRequest.getPageSize()), products.size());
+
+        List<GetProductDto> pageContent = products.subList(start, end);
+        return new PageImpl<>(pageContent, pageRequest, products.size());
     }
 }

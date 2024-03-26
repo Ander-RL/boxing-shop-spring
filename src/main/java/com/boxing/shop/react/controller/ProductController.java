@@ -83,6 +83,8 @@ public class ProductController {
         int start = (int) pageRequest.getOffset();
         int end = Math.min((start + pageRequest.getPageSize()), products.size());
 
+        if(start >= end) start = 0;
+
         List<GetProductDto> pageContent = products.subList(start, end);
         return new PageImpl<>(pageContent, pageRequest, products.size());
     }

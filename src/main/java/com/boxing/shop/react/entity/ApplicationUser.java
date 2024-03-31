@@ -19,10 +19,12 @@ public class ApplicationUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id", unique = true , nullable = false)
-    private long userId;
+    private Long userId;
 
+    @Column(name = "username", unique = true , nullable = false)
     private String username;
 
+    @Column(name = "password", nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

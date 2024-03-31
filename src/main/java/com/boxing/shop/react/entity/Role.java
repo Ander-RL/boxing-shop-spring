@@ -14,6 +14,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "role_id", unique = true , nullable = false)
     private Integer roleId;
 
+    @Column(name = "authority")
     private String authority;
 
     public Role (Integer roleId, String authority) {

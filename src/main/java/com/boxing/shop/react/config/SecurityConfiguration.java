@@ -12,10 +12,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.cors.reactive.CorsWebFilter;
 
 import java.util.List;
 
@@ -42,8 +42,13 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .headers(headers -> headers.frameOptions(options -> options.disable())) // Allows to see h2-console in browser
-                //.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> {auth
+                        .requestMatchers(new AntPathRequestMatcher("/v1/products")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/v1/products/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/v1/orders")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/v1/orders/**")).permitAll()
+                        .anyRequest().authenticated();
+                })
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }

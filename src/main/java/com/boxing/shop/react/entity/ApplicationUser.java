@@ -3,15 +3,16 @@ package com.boxing.shop.react.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 
 @Data
-@AllArgsConstructor
 @Entity
 @Table(name="users")
 public class ApplicationUser implements UserDetails {
@@ -34,6 +35,19 @@ public class ApplicationUser implements UserDetails {
             inverseJoinColumns = {@JoinColumn(name="role_id")}
     )
     private Set<Role> authorities;
+
+    public ApplicationUser() {
+        super();
+        authorities = new HashSet<>();
+    }
+
+    public ApplicationUser(Long userId, String username, String password, Set<Role> authorities) {
+        super();
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

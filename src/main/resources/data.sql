@@ -16,9 +16,10 @@ INSERT INTO products(product_id, keyword, name, img, quantity, unitary_amount, d
 INSERT INTO products(product_id, keyword, name, img, quantity, unitary_amount, description) VALUES(15, 'mouthpiece', 'Pro Mouthpiece', 'Mouthpiece.jpg', 26, 50, 'Professional mouthpiece');
 
 
-/*INSERT INTO roles(role_id, authority) VALUES (1, 'ADMIN');*/
-/*INSERT INTO roles(role_id, authority) VALUES (2, 'USER');*/
+INSERT INTO roles(role_id, authority) VALUES (1, 'ADMIN');
+INSERT INTO roles(role_id, authority) VALUES (2, 'USER');
 
-/*INSERT INTO users(user_id, username, password) VALUES (1, 'ander', '123');*/
+/* 'Password = 123 encripted via https://bcrypt-generator.com/' */
+INSERT INTO users(user_id, username, password, role_id) VALUES (1, 'ander', '$2a$12$/Do8FHmMHKtXTEmOkEknSOJsoyhpRYfar86ehJy/iVYCTYkOh/DT2', 1);
 
-/*INSERT INTO user_role_junction(user_id, role_id) VALUES (1, 1);*/
+INSERT INTO user_role_junction(user_id, role_id) VALUES (1, 1);

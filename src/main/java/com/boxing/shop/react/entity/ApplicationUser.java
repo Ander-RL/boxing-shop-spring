@@ -1,9 +1,8 @@
 package com.boxing.shop.react.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,7 +17,16 @@ import java.util.Set;
 public class ApplicationUser implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "sequence-generator")
+    @GenericGenerator(
+            name = "sequence-generator",
+            type = org.hibernate.id.enhanced.SequenceStyleGenerator.class,
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "application_user_sequence"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1000"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            }
+    )
     @Column(name = "user_id", unique = true , nullable = false)
     private Long userId;
 
@@ -27,9 +35,6 @@ public class ApplicationUser implements UserDetails {
 
     @Column(name = "password", nullable = false)
     private String password;
-
-    @Column(name = "role_id", nullable = false)
-    private Integer roleId;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -44,12 +49,11 @@ public class ApplicationUser implements UserDetails {
         authorities = new HashSet<>();
     }
 
-    public ApplicationUser(Long userId, String username, String password, Integer roleId, Set<Role> authorities) {
+    public ApplicationUser(Long userId, String username, String password, Set<Role> authorities) {
         super();
         this.userId = userId;
         this.username = username;
         this.password = password;
-        this.roleId = roleId;
         this.authorities = authorities;
     }
 

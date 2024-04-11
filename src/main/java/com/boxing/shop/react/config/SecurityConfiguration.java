@@ -47,6 +47,8 @@ public class SecurityConfiguration {
                         .requestMatchers(new AntPathRequestMatcher("/v1/products/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/v1/orders")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/v1/orders/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/v1/auth")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/v1/auth/**")).permitAll()
                         .anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults())

@@ -1,6 +1,8 @@
 package com.boxing.shop.react.controller;
 
+import com.boxing.shop.react.dto.LoginResponseDto;
 import com.boxing.shop.react.dto.PostApplicationUserDto;
+import com.boxing.shop.react.dto.RegistrationDto;
 import com.boxing.shop.react.entity.ApplicationUser;
 import com.boxing.shop.react.service.AuthenticationService;
 import lombok.AllArgsConstructor;
@@ -23,5 +25,10 @@ public class AuthenticationController {
     public ApplicationUser saveUser(@RequestBody PostApplicationUserDto credentials){
 
         return authenticationService.registerUser(credentials);
+    }
+
+    @PostMapping("/login")
+    public LoginResponseDto loginUser(@RequestBody RegistrationDto body){
+        return authenticationService.loginUser(body.getUsername(), body.getPassword());
     }
 }

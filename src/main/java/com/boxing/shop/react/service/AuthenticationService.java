@@ -1,5 +1,6 @@
 package com.boxing.shop.react.service;
 
+import com.boxing.shop.react.dto.LoginResponseDto;
 import com.boxing.shop.react.dto.PostApplicationUserDto;
 import com.boxing.shop.react.entity.ApplicationUser;
 import com.boxing.shop.react.entity.Role;
@@ -7,6 +8,10 @@ import com.boxing.shop.react.mapper.IApplicationUserMapper;
 import com.boxing.shop.react.repository.IRoleRepository;
 import com.boxing.shop.react.repository.IUserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +32,10 @@ public class AuthenticationService {
 
     private final IApplicationUserMapper applicationUserMapper;
 
+    private AuthenticationManager authenticationManager;
+
+    private TokenService tokenService;
+
     private final PasswordEncoder passwordEncoder;
 
     public ApplicationUser registerUser(PostApplicationUserDto postApplicationUserDto) {
@@ -43,5 +52,21 @@ public class AuthenticationService {
         applicationUser.setAuthorities(authorities);
 
         return userRepository.save(applicationUser);
+    }
+
+    public LoginResponseDto loginUser(String username, String password){
+
+        try{ // Find user & check password
+            Authentication auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password)
+            );
+
+            String token = tokenService.generateJwt(auth);
+
+            return new LoginResponseDto(userRepository.findByUsername(username).get(), token);
+
+        } catch(AuthenticationException e){
+            return new LoginResponseDto(null, "");
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.boxing.shop.react.service;
 
 import com.boxing.shop.react.dto.LoginResponseDto;
 import com.boxing.shop.react.dto.PostApplicationUserDto;
+import com.boxing.shop.react.dto.PostRegistrationUserDto;
 import com.boxing.shop.react.entity.ApplicationUser;
 import com.boxing.shop.react.entity.Role;
 import com.boxing.shop.react.mapper.IApplicationUserMapper;
@@ -38,32 +39,32 @@ public class AuthenticationService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public ApplicationUser registerUser(PostApplicationUserDto postApplicationUserDto) {
+    public ApplicationUser registerUser(PostRegistrationUserDto postRegistrationUserDto) {
 
-        String encodedPassword = passwordEncoder.encode(postApplicationUserDto.getPassword());
+        String encodedPassword = passwordEncoder.encode(postRegistrationUserDto.getPassword());
         Role userRole = roleRepository.findByAuthority("USER").orElseThrow(NoSuchElementException::new);
 
         Set<Role> authorities = new HashSet<>();
         authorities.add(userRole);
 
-        postApplicationUserDto.setPassword(encodedPassword);
+        postRegistrationUserDto.setPassword(encodedPassword);
 
-        ApplicationUser applicationUser = applicationUserMapper.dtoToEntity(postApplicationUserDto);
+        ApplicationUser applicationUser = applicationUserMapper.dtoToEntity(postRegistrationUserDto);
         applicationUser.setAuthorities(authorities);
 
         return userRepository.save(applicationUser);
     }
 
-    public LoginResponseDto loginUser(String username, String password){
+    public LoginResponseDto loginUser(PostApplicationUserDto credentials){
 
         try{ // Find user & check password
             Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
+                    new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword())
             );
 
             String token = tokenService.generateJwt(auth);
 
-            return new LoginResponseDto(userRepository.findByUsername(username).get(), token);
+            return new LoginResponseDto(userRepository.findByUsername(credentials.getUsername()).get(), token);
 
         } catch(AuthenticationException e){
             return new LoginResponseDto(null, "");

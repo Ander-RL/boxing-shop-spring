@@ -36,6 +36,9 @@ public class ApplicationUser implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="user_role_junction",
@@ -49,11 +52,12 @@ public class ApplicationUser implements UserDetails {
         authorities = new HashSet<>();
     }
 
-    public ApplicationUser(Long userId, String username, String password, Set<Role> authorities) {
+    public ApplicationUser(Long userId, String username, String password, String email, Set<Role> authorities) {
         super();
         this.userId = userId;
         this.username = username;
         this.password = password;
+        this.email = email;
         this.authorities = authorities;
     }
 

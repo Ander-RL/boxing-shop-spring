@@ -3,6 +3,7 @@ package com.boxing.shop.react.controller;
 import com.boxing.shop.react.dto.LoginResponseDto;
 import com.boxing.shop.react.dto.PostApplicationUserDto;
 import com.boxing.shop.react.dto.PostRegistrationUserDto;
+import com.boxing.shop.react.dto.RegistrationUserResponseDto;
 import com.boxing.shop.react.entity.ApplicationUser;
 import com.boxing.shop.react.service.AuthenticationService;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class AuthenticationController {
      * @return String
      */
     @PostMapping(path="/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ApplicationUser saveUser(@RequestBody PostRegistrationUserDto postRegistrationUserDto){
+    public RegistrationUserResponseDto saveUser(@RequestBody PostRegistrationUserDto postRegistrationUserDto){
 
         return authenticationService.registerUser(postRegistrationUserDto);
     }

@@ -3,6 +3,7 @@ package com.boxing.shop.react.service;
 import com.boxing.shop.react.dto.LoginResponseDto;
 import com.boxing.shop.react.dto.PostApplicationUserDto;
 import com.boxing.shop.react.dto.PostRegistrationUserDto;
+import com.boxing.shop.react.dto.RegistrationUserResponseDto;
 import com.boxing.shop.react.entity.ApplicationUser;
 import com.boxing.shop.react.entity.Role;
 import com.boxing.shop.react.mapper.IApplicationUserMapper;
@@ -39,7 +40,7 @@ public class AuthenticationService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public ApplicationUser registerUser(PostRegistrationUserDto postRegistrationUserDto) {
+    public RegistrationUserResponseDto registerUser(PostRegistrationUserDto postRegistrationUserDto) {
 
         String encodedPassword = passwordEncoder.encode(postRegistrationUserDto.getPassword());
         Role userRole = roleRepository.findByAuthority("USER").orElseThrow(NoSuchElementException::new);
@@ -52,7 +53,24 @@ public class AuthenticationService {
         ApplicationUser applicationUser = applicationUserMapper.dtoToEntity(postRegistrationUserDto);
         applicationUser.setAuthorities(authorities);
 
-        return userRepository.save(applicationUser);
+        RegistrationUserResponseDto registrationResponse = new RegistrationUserResponseDto();
+        registrationResponse.setUsername(applicationUser.getUsername());
+        registrationResponse.setEmail(applicationUser.getEmail());
+
+        if(!userExists(applicationUser)){
+            userRepository.save(applicationUser);
+            registrationResponse.setMessage("User created");
+            registrationResponse.setStatusCode(201);
+        } else {
+            registrationResponse.setMessage("User already exists");
+            registrationResponse.setStatusCode(409);
+        }
+
+        return registrationResponse;
+    }
+
+    private boolean userExists(ApplicationUser applicationUser) {
+        return userRepository.findByEmail(applicationUser.getEmail()).isPresent() || userRepository.findByUsername(applicationUser.getUsername()).isPresent();
     }
 
     public LoginResponseDto loginUser(PostApplicationUserDto credentials){

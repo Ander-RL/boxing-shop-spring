@@ -63,6 +63,9 @@ public class SecurityConfiguration {
                 .headers(headers -> headers.frameOptions(options -> options.disable())) // Allows to see h2-console in browser
                 .authorizeHttpRequests(auth -> {
                     auth
+                            .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
                             .requestMatchers(new AntPathRequestMatcher("/v1/products")).permitAll()
                             .requestMatchers(new AntPathRequestMatcher("/v1/products/**")).permitAll()
                             .requestMatchers(new AntPathRequestMatcher("/v1/orders")).permitAll()

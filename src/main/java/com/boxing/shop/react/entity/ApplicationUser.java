@@ -47,18 +47,27 @@ public class ApplicationUser implements UserDetails {
     )
     private Set<Role> authorities;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name="user_order_junction",
+            joinColumns = {@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="order_id")}
+    )
+    private Set<Order> orders;
+
     public ApplicationUser() {
         super();
         authorities = new HashSet<>();
     }
 
-    public ApplicationUser(Long userId, String username, String password, String email, Set<Role> authorities) {
+    public ApplicationUser(Long userId, String username, String password, String email, Set<Role> authorities, Set<Order> orders) {
         super();
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.email = email;
         this.authorities = authorities;
+        this.orders = orders;
     }
 
     @Override

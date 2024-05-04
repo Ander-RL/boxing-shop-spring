@@ -1,9 +1,9 @@
 package com.boxing.shop.react.controller;
 
-import com.boxing.shop.react.service.UserService;
+import com.boxing.shop.react.dto.GetUserDataDto;
+import com.boxing.shop.react.service.UserDataService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class UserAccountController {
 
-    private final UserService userService;
+    private final UserDataService userDataService;
 
     /**
-     * Return user
+     * Return user account data
      * @return String
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDetails getUser(@RequestParam(name = "username") String name){
+    public GetUserDataDto getUser(@RequestParam(name = "username") String username){
 
-        return userService.loadUserByUsername(name);
+        return userDataService.loadUserDataByUsername(username);
     }
 }

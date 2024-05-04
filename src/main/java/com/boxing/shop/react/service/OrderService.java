@@ -1,6 +1,7 @@
 package com.boxing.shop.react.service;
 
 import com.boxing.shop.react.dto.*;
+import com.boxing.shop.react.entity.ApplicationUser;
 import com.boxing.shop.react.entity.Order;
 import com.boxing.shop.react.entity.OrderProduct;
 import com.boxing.shop.react.entity.Product;
@@ -31,6 +32,8 @@ public class OrderService {
 
     private final IProductMapper productMapper;
 
+    private final UserService userService;
+
 
     /**
      * Return list of orders
@@ -40,6 +43,27 @@ public class OrderService {
     public List<GetOrderDto> getOrders(){
 
         List<Order> orders = orderRepository.findAll();
+        List<GetOrderDto> orderDtoList = new ArrayList<>();
+
+        for(Order order : orders) {
+            List<OrderProduct> postOrderProductDtoList = order.getProducts();
+            List<GetOrderProductDto> getOrderProductDtoList = new ArrayList<>();
+
+            GetOrderDto orderDto = mapOrderProductsToDtos(postOrderProductDtoList, getOrderProductDtoList, order);
+
+            orderDtoList.add(orderDto);
+        }
+
+        return orderDtoList;
+    }
+    /**
+     * Return list of orders based on a list of orderId
+     * @return List<GetOrderDto>
+     */
+    @Transactional(readOnly = true)
+    public List<GetOrderDto> getOrdersByIdList(List<Long> id){
+
+        List<Order> orders = orderRepository.findAllById(id);
         List<GetOrderDto> orderDtoList = new ArrayList<>();
 
         for(Order order : orders) {
@@ -77,13 +101,15 @@ public class OrderService {
      * @return Order
      */
     @Transactional()
-    public GetOrderDto postOrder(PostOrderDto postOrderDto){
+    public GetOrderDto postOrder(PostOrderDto postOrderDto, String username){
 
         List<OrderProduct> products = postOrderDto.getProducts().stream().map(productMapper::dtoToEntity).toList();
         orderProductRepository.saveAll(products);
 
+        ApplicationUser applicationUser = userService.loadApplicationUserByUsername(username);
+
         Order order = new Order();
-        order.setCustomerId(postOrderDto.getCustomerId());
+        order.setCustomerId(applicationUser.getUserId());
         order.setProducts(products);
         order.setTotalAmount(calculateTotalAmount(products));
 
@@ -94,9 +120,18 @@ public class OrderService {
             e.printStackTrace();
         }
 
+        applicationUser.getOrders().add(order);
+
+        userService.updateUser(applicationUser);
+
         return orderMapper.entityToDto(orderRepository.save(order));
     }
 
+    /**
+     * Return total amount of the order
+     * @param products List<OrderProduct>
+     * @return Double
+     */
     private Double calculateTotalAmount(List<OrderProduct> products) {
         double total = 0.0;
         for(OrderProduct orderProduct : products){
@@ -106,6 +141,11 @@ public class OrderService {
         return total;
     }
 
+    /**
+     * Maps entities to DTOs
+     * @param orderProducts List<OrderProduct>, orderProductDtos List<GetOrderProductDto>, order Order
+     * @return GetOrderDto
+     */
     private GetOrderDto mapOrderProductsToDtos(List<OrderProduct> orderProducts, List<GetOrderProductDto> orderProductDtos, Order order) {
         for(OrderProduct orderProduct : orderProducts) {
             orderProductDtos.add(productMapper.entityToDto(orderProduct));

@@ -75,6 +75,7 @@ public class SecurityConfiguration {
                             .requestMatchers(new AntPathRequestMatcher("/v1/admin/**")).hasRole("ADMIN")
                             .requestMatchers(new AntPathRequestMatcher("/v1/user/**")).hasAnyRole("ADMIN", "USER")
                             .requestMatchers(new AntPathRequestMatcher("/v1/account/**")).hasAnyRole("ADMIN", "USER")
+                            .requestMatchers(new AntPathRequestMatcher("/v1/orders/**")).hasAnyRole("ADMIN", "USER")
                             .anyRequest().authenticated();
                 })
                 .oauth2ResourceServer(oauth2 -> oauth2

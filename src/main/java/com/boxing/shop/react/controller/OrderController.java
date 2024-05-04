@@ -2,7 +2,6 @@ package com.boxing.shop.react.controller;
 
 import com.boxing.shop.react.dto.GetOrderDto;
 import com.boxing.shop.react.dto.PostOrderDto;
-import com.boxing.shop.react.entity.Order;
 import com.boxing.shop.react.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,7 +25,7 @@ public class OrderController {
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<GetOrderDto> getOrders(){
-
+        // TODO requerir username
         return orderService.getOrders();
     }
 
@@ -50,8 +49,8 @@ public class OrderController {
      */
     @PostMapping(path = "/checkout",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public GetOrderDto postOrder(@RequestBody PostOrderDto postOrderDto){
+    public GetOrderDto postOrder(@RequestBody PostOrderDto postOrderDto, @RequestParam String username){
 
-        return orderService.postOrder(postOrderDto);
+        return orderService.postOrder(postOrderDto, username);
     }
 }

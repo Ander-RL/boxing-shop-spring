@@ -1,9 +1,13 @@
 package com.boxing.shop.react.service;
 
+import com.boxing.shop.react.dto.GetAddressDto;
 import com.boxing.shop.react.dto.GetOrderDto;
 import com.boxing.shop.react.dto.GetUserDataDto;
 import com.boxing.shop.react.entity.ApplicationUser;
 import com.boxing.shop.react.entity.Order;
+import com.boxing.shop.react.entity.UserAddress;
+import com.boxing.shop.react.mapper.IUserAddressMapper;
+import com.boxing.shop.react.repository.IUserAddressRepository;
 import com.boxing.shop.react.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,14 +22,18 @@ public class UserDataService {
     private IUserRepository userRepository;
 
     @Autowired
+    private IUserAddressRepository userAddressRepository;
+
+    @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private IUserAddressMapper userAddressMapper;
 
     public GetUserDataDto loadUserDataByUsername(String username) throws UsernameNotFoundException {
 
         // TODO: loadUserByUsername
         //  -> load user personal data
-        //  -> load user orders data
-        //  -> load user address book data
         //  -> load user wishlist data
 
         System.out.println("[UserService][loadApplicationUserData] username: " + username);
@@ -37,9 +45,14 @@ public class UserDataService {
         List<GetOrderDto> orderList = orderService
                 .getOrdersByIdList(user.getOrders().stream().map(Order::getOrderId).collect(Collectors.toList()));
 
+        List<UserAddress> userAddressList = userAddressRepository.findAllById(user.getUserId());
+        List<GetAddressDto> userAddressDtoList = userAddressList.stream().map((address) -> userAddressMapper.entityToDto(address)).toList();
+
         GetUserDataDto userData = new GetUserDataDto();
         userData.setUsername(username);
         userData.setOrders(orderList);
+        userData.setEmail(user.getEmail());
+        userData.setAddressList(userAddressDtoList);
 
         return userData;
     }

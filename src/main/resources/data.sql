@@ -23,3 +23,6 @@ INSERT INTO roles(role_id, authority) VALUES (2, 'USER');
 INSERT INTO users(user_id, username, password, email) VALUES (1, 'ander', '$2a$12$/Do8FHmMHKtXTEmOkEknSOJsoyhpRYfar86ehJy/iVYCTYkOh/DT2', 'userEmail@gmail.com');
 
 INSERT INTO user_role_junction(user_id, role_id) VALUES (1, 1);
+
+
+INSERT INTO addresses(address_id, user_id, door, floor, street, city, country, postal_code) VALUES ('1', 1, 'C', 1, 'Arasaka Square', 'Night City', 'Night City', '2077');

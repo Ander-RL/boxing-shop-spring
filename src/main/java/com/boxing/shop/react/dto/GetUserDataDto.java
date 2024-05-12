@@ -23,6 +23,6 @@ public class GetUserDataDto {
 
     private List<GetOrderDto> orders;
 
-    private GetAddressDto address;
+    private List<GetAddressDto> addressList;
 
 }

@@ -36,7 +36,7 @@ public class Order {
     @Column(name = "customer_id", nullable = false)
     private Long customerId;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name="order_id", referencedColumnName = "order_id")
     private List<OrderProduct> products;
 

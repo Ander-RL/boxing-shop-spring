@@ -42,6 +42,10 @@ public class AuthenticationService {
 
     public RegistrationUserResponseDto registerUser(PostRegistrationUserDto postRegistrationUserDto) {
 
+        RegistrationUserResponseDto registrationResponse = new RegistrationUserResponseDto();
+
+        if(!isInputFieldValid(postRegistrationUserDto, registrationResponse)) return registrationResponse;
+
         String encodedPassword = passwordEncoder.encode(postRegistrationUserDto.getPassword());
         Role userRole = roleRepository.findByAuthority("USER").orElseThrow(NoSuchElementException::new);
 
@@ -53,9 +57,10 @@ public class AuthenticationService {
         ApplicationUser applicationUser = applicationUserMapper.dtoToEntity(postRegistrationUserDto);
         applicationUser.setAuthorities(authorities);
 
-        RegistrationUserResponseDto registrationResponse = new RegistrationUserResponseDto();
         registrationResponse.setUsername(applicationUser.getUsername());
         registrationResponse.setEmail(applicationUser.getEmail());
+        registrationResponse.setFirstName(applicationUser.getFirstName());
+        registrationResponse.setSecondName(applicationUser.getSecondName());
 
         if(!userExists(applicationUser)){
             userRepository.save(applicationUser);
@@ -67,6 +72,16 @@ public class AuthenticationService {
         }
 
         return registrationResponse;
+    }
+
+    private boolean isInputFieldValid(PostRegistrationUserDto postRegistrationUserDto, RegistrationUserResponseDto registrationResponse) {
+        if(!postRegistrationUserDto.getPassword().equals(postRegistrationUserDto.getConfirmPassword())) {
+            registrationResponse.setMessage("Password and confirm password are not equals.");
+            registrationResponse.setStatusCode(401);
+            return false;
+        }
+
+        return true;
     }
 
     private boolean userExists(ApplicationUser applicationUser) {

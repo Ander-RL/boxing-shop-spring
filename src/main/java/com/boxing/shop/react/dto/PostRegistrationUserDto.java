@@ -10,5 +10,9 @@ import lombok.NoArgsConstructor;
 public class PostRegistrationUserDto {
     private String username;
     private String password;
+    private String confirmPassword;
     private String email;
+    private String firstName;
+    private String secondName;
+    private String birthDate;
 }

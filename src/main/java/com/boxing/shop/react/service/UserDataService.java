@@ -50,9 +50,13 @@ public class UserDataService {
 
         GetUserDataDto userData = new GetUserDataDto();
         userData.setUsername(username);
+        userData.setFirstName(user.getFirstName());
+        userData.setSecondName(user.getSecondName());
+        userData.setBirthDate(user.getBirthDate());
         userData.setOrders(orderList);
         userData.setEmail(user.getEmail());
         userData.setAddressList(userAddressDtoList);
+        System.out.println("[UserService][loadApplicationUserData] returning userData: " + userData);
 
         return userData;
     }

@@ -97,10 +97,24 @@ public class AuthenticationService {
 
             String token = tokenService.generateJwt(auth);
 
-            return new LoginResponseDto(userRepository.findByUsername(credentials.getUsername()).get(), token);
+            ApplicationUser user = userRepository.findByUsername(credentials.getUsername()).get();
+
+            return new LoginResponseDto(user.getUsername(),
+                                        user.getFirstName(),
+                                        user.getSecondName(),
+                                        user.getEmail(),
+                                        "User logged in successfully",
+                                        201,
+                                        token);
 
         } catch(AuthenticationException e){
-            return new LoginResponseDto(null, "");
-        }
+            return new LoginResponseDto(null,
+                    null,
+                    null,
+                    null,
+                    "Wrong login credentials",
+                    401,
+                    "");
+            }
     }
 }

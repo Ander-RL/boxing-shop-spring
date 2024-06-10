@@ -23,9 +23,8 @@ public class OrderController {
      * Return list of orders
      * @return List<GetOrderDto>
      */
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<GetOrderDto> getOrders(){
-        // TODO requerir username
         return orderService.getOrders();
     }
 

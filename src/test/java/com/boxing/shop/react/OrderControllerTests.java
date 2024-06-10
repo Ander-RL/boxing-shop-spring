@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -42,12 +43,13 @@ class OrderControllerTests {
 	}
 
 	@Test
+	@WithMockUser(roles = "ADMIN", value = "ander", username = "ander", password = "123")
 	void getOrdersControllerTest() {
-		Mockito.when(orderRepository.findAll()).thenReturn(preprareOrderList());
+		Mockito.when(orderRepository.findByUserId("ander")).thenReturn(preprareOrderList());
 		List<GetOrderDto> getOrderDtoList = orderController.getOrders();
 		List<Object> expectedOrderList = TestUtil.leerJSONasDTOList(Constants.GetOrderDtoListPath, GetOrderDto.class);
 
-		Assertions.assertEquals(getOrderDtoList, expectedOrderList);
+		Assertions.assertEquals(expectedOrderList, getOrderDtoList);
 	}
 
 	@Test

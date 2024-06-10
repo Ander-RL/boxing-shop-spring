@@ -7,10 +7,9 @@ import com.boxing.shop.react.entity.OrderProduct;
 import com.boxing.shop.react.entity.Product;
 import com.boxing.shop.react.mapper.IOrderMapper;
 import com.boxing.shop.react.mapper.IProductMapper;
-import com.boxing.shop.react.repository.IOrderProductRepository;
-import com.boxing.shop.react.repository.IOrderRepository;
-import com.boxing.shop.react.repository.IProductRepository;
+import com.boxing.shop.react.repository.*;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +23,8 @@ public class OrderService {
 
     private final IOrderRepository orderRepository;
 
+    private final IUserRepository userRepository;
+
     private final IProductRepository productRepository;
 
     private final IOrderProductRepository orderProductRepository;
@@ -36,14 +37,24 @@ public class OrderService {
 
 
     /**
-     * Return list of orders
+     * Return list of orders for authenticated user
      * @return List<GetOrderDto>
      */
     @Transactional(readOnly = true)
     public List<GetOrderDto> getOrders(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println("[OrderService][getOrders] username: " + username);
+        Optional<ApplicationUser> userData = userRepository.findByUsername(username);
+        System.out.println("[OrderService][getOrders] userData.isPresent(): " + userData.isPresent());
+        long userId = userData.isPresent() ? userData.get().getUserId() : 0L;
+        System.out.println("[OrderService][getOrders] userId: " + userId);
 
-        List<Order> orders = orderRepository.findAll();
         List<GetOrderDto> orderDtoList = new ArrayList<>();
+
+        if(userId == 0L) return orderDtoList;
+
+        List<Order> orders = orderRepository.findByUserId(String.valueOf(userId));
+        System.out.println("[OrderService][getOrders] order list: " + orders);
 
         for(Order order : orders) {
             List<OrderProduct> postOrderProductDtoList = order.getProducts();
@@ -113,12 +124,12 @@ public class OrderService {
         order.setProducts(products);
         order.setTotalAmount(calculateTotalAmount(products));
 
-        try {
+        /*try {
             Thread.sleep(5000);
-            //Any other code to execute after 5 min execution pause.
+            //Any other code to execute after 5 sec execution pause.
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
 
         applicationUser.getOrders().add(order);
 

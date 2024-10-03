@@ -1,8 +1,10 @@
 package com.boxing.shop.react.service;
 
 import com.boxing.shop.react.dto.GetProductDto;
+import com.boxing.shop.react.dto.GetProductLineDto;
 import com.boxing.shop.react.entity.Product;
 import com.boxing.shop.react.mapper.IProductMapper;
+import com.boxing.shop.react.repository.IProductLineRepository;
 import com.boxing.shop.react.repository.IProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,8 @@ public class ProductService {
 
     private final IProductRepository productRepository;
 
+    private final IProductLineRepository productLineRepository;
+
     private final IProductMapper productMapper;
 
     /**
@@ -33,6 +37,19 @@ public class ProductService {
         return productRepository.findAll()
                 .stream()
                 .map(productMapper::entityToDto)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Return list of products
+     * @return List<GetProductDto>
+     */
+    @Transactional(readOnly = true)
+    public List<GetProductLineDto> getProductLine(){
+
+        return productLineRepository.findAll()
+                .stream()
+                .map(productMapper::productLineEntityToDto)
                 .collect(Collectors.toList());
     }
 

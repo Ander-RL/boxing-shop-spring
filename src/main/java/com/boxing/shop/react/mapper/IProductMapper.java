@@ -1,9 +1,11 @@
 package com.boxing.shop.react.mapper;
 import com.boxing.shop.react.dto.GetOrderProductDto;
 import com.boxing.shop.react.dto.GetProductDto;
+import com.boxing.shop.react.dto.GetProductLineDto;
 import com.boxing.shop.react.dto.PostOrderProductDto;
 import com.boxing.shop.react.entity.OrderProduct;
 import com.boxing.shop.react.entity.Product;
+import com.boxing.shop.react.entity.ProductLine;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -18,6 +20,13 @@ public interface IProductMapper {
     @Mapping(target = "unitaryAmount", source = "unitaryAmount")
     @Mapping(target = "description", source = "description")
     GetProductDto entityToDto (Product entity);
+
+    @Mapping(target = "productId", source = "productId")
+    @Mapping(target = "keyword", source = "keyword")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "img", source = "img")
+    @Mapping(target = "description", source = "description")
+    GetProductLineDto productLineEntityToDto (ProductLine entity);
 
     @Mapping(target = "purchasedProduct", source = "purchasedProduct")
     @Mapping(target = "quantity", source = "quantity")

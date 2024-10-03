@@ -1,6 +1,7 @@
 package com.boxing.shop.react.controller;
 
 import com.boxing.shop.react.dto.GetProductDto;
+import com.boxing.shop.react.dto.GetProductLineDto;
 import com.boxing.shop.react.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageImpl;
@@ -30,6 +31,16 @@ public class ProductController {
     public List<GetProductDto> getProducts(){
 
         return productService.getProducts();
+    }
+
+    /**
+     * Return list of products
+     * @return List<GetProductDto>
+     */
+    @GetMapping(path = "/product_line", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<GetProductLineDto> getProductLine(){
+
+        return productService.getProductLine();
     }
 
     /**
